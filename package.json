@@ -13,6 +13,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "pnpm build && playwright test",
+    "test:e2e:report": "playwright show-report",
     "preview": "serve out -l tcp://127.0.0.1:3000"
   },
   "dependencies": {
@@ -23,6 +25,7 @@
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/postcss": "^4.1.0",
     "@types/node": "^24.0.0",
     "@types/react": "^19.2.0",
