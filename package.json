@@ -11,6 +11,8 @@
     "build": "next build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "preview": "serve out -l tcp://127.0.0.1:3000"
   },
   "dependencies": {
@@ -29,7 +31,8 @@
     "eslint-config-next": "16.4.5",
     "serve": "^14.2.0",
     "tailwindcss": "^4.1.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "vitest": "^5.1.0"
   },
   "msw": {
     "workerDirectory": [

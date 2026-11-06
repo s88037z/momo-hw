@@ -1,5 +1,15 @@
 export type ProductSort = "recommended" | "price-asc" | "price-desc";
 
+export interface ProductSearchQuery {
+  q: string;
+  category: string;
+  brand: string;
+  min?: number;
+  max?: number;
+  sort: ProductSort;
+  page: number;
+}
+
 export interface Product {
   id: string;
   name: string;
