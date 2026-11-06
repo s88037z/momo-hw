@@ -2,6 +2,8 @@
 
 @theme {
   --color-momo: #d62872;
+  --color-momo-price: #f01879;
+  --color-momo-line: #e8e8e8;
 }
 
 body {
@@ -13,4 +15,23 @@ body {
 
 button, a, input, select {
   outline-offset: 4px;
+}
+
+button:not(:disabled), a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.page-container {
+  width: min(1280px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.campaign-flag {
+  clip-path: polygon(0 0, 100% 0, 100% 87%, 0 100%);
+}
+
+@media (max-width: 639px) {
+  .page-container {
+    width: calc(100% - 32px);
+  }
 }

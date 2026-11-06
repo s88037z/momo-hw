@@ -1,7 +1,10 @@
+export type ProductSort = "recommended" | "price-asc" | "price-desc";
+
 export interface Product {
   id: string;
   name: string;
   brand: string;
+  category: "手機" | "手機配件";
   keywords: string[];
   image: string;
   price: number;
@@ -10,6 +13,13 @@ export interface Product {
   reviewCount: number;
   salesCount: number;
   promotion: string;
+  campaignLabel: string;
+  fastDelivery: boolean;
+}
+
+export interface ProductFacet {
+  value: string;
+  count: number;
 }
 
 export interface ProductSearchResponse {
@@ -17,4 +27,6 @@ export interface ProductSearchResponse {
   total: number;
   page: number;
   pageSize: number;
+  brands: ProductFacet[];
+  categories: ProductFacet[];
 }

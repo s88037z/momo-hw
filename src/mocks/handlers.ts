@@ -9,5 +9,11 @@ export const handlers = [
     total: products.length,
     page: 1,
     pageSize: 12,
+    brands: [...new Set(products.map((product) => product.brand))].map((value) => ({
+      value, count: products.filter((product) => product.brand === value).length,
+    })),
+    categories: [...new Set(products.map((product) => product.category))].map((value) => ({
+      value, count: products.filter((product) => product.category === value).length,
+    })),
   })),
 ];
