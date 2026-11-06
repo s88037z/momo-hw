@@ -23,7 +23,7 @@
 
 不做：其他進階 Facets、服務條件篩選、月銷量／上市日／評價排序、列表檢視切換、瀏覽紀錄、會員、購物車、結帳、真站 API 與後端服務。
 
-視覺依據為 `.ai/resources/snapshot/search-snapshot.png`，輔以規劃階段已取得的真站畫面。比較時固定 CSS viewport 為 1440 × 1000；原圖的影像像素不直接視為 CSS 尺寸。優先比對內容寬度、篩選區密度、灰底排序列、粉紅選取態、桌面六欄商品網格，以及圖片／文字／價格比例。
+視覺依據為使用者提供的 [參考截圖](./reference/search-reference.png)，輔以規劃階段已取得的真站畫面。原圖由 `.ai/resources/snapshot/search-snapshot.png` 原樣複製到可提交的 docs，讓 reviewer 不依賴被忽略的內部目錄。比較時固定 CSS viewport 為 1440 × 1000；原圖的影像像素不直接視為 CSS 尺寸。優先比對內容寬度、篩選區密度、灰底排序列、粉紅選取態、桌面六欄商品網格，以及圖片／文字／價格比例。
 
 商品區要包含完整商品卡，不能只完成截圖中露出的圖片上緣。素材使用本地檔案並記錄來源，執行時不依賴 momo 圖片服務；參考圖若需交付，須另行納入可提交的位置。
 
@@ -85,6 +85,8 @@ Next.js 注意事項：讀取 `useSearchParams` 的 Client Component 使用適�
 驗證以一條核心端到端測試（E2E）及必要的查詢邏輯測試為主；完成 build、型別／lint 檢查，檢查 console 與 Network 無錯誤或真站 API 呼叫。視覺比對須列出保留的差異，不宣稱完整 pixel-perfect 還原。
 
 依第三批事前討論，先導入 Vitest 驗證查詢業務邏輯；搜尋流程完成後再加入 Playwright E2E。兩者涵蓋範圍不同，瀏覽器抽查不取代後續可重跑的 E2E suite；暫不加入 RTL。
+
+第四批已加入五個 Playwright E2E：組合查詢、分類／品牌連動與清除、分頁及 URL 歷史還原、非法輸入與零結果復原、API 失敗重試。測試對 production 靜態輸出執行，保留真實 MSW handler；失敗時保留 trace、截圖與 HTML report，不增加產品功能。
 
 提交內容包含 source、Git history、啟動方式、範圍與差異、驗證結果及精簡協作紀錄。未來接入 API 時替換 Mock service；新增多類別商品時才擴充 Facet schema；出現跨頁購物車需求時再評估 Zustand。
 
