@@ -2,7 +2,7 @@
 
 參考 momo 購物網搜尋頁的純前端作業。使用 Next.js App Router、TypeScript、Tailwind CSS、TanStack Query 與 MSW；不呼叫 momo API。
 
-目前為第 1 批：專案建置與 Mock HTTP 資料流程。`/search` 暫時顯示基本商品清單，尚未實作正式版面、URL 查詢條件、篩選、排序與分頁互動。
+目前完成第 2 批：搜尋頁主要版面、桌面六欄／窄螢幕兩欄商品卡與本地商品圖片。搜尋、品牌、價格、排序及分頁控制項尚未接線，暫時停用；第 3 批再實作 URL 查詢與互動。
 
 ## 本地開發
 
@@ -28,10 +28,10 @@ pnpm preview
 ## Mock 設計
 
 - `src/features/products/api.ts` 透過 `fetch('/api/products')` 讀取商品，由 TanStack Query 管理結果與非同步狀態。
-- `src/mocks/handlers.ts` 使用 MSW 攔截請求，不需要真實 API server。第 1 批僅回傳固定的第一頁資料；查詢參數將在第 3 批實作。
+- `src/mocks/handlers.ts` 使用 MSW 攔截請求，不需要真實 API server。目前回傳固定的第一頁資料，分類與品牌數量從完整 fixtures 計算；查詢參數將在第 3 批實作。
 - `src/mocks/provider.tsx` 等待 Worker 啟動後才掛載頁面，避免初次請求穿透至靜態主機。啟動失敗時顯示可重新載入的錯誤狀態。
 - 開發及靜態展示版都啟用 MSW。這是展示的資料來源，不能以 `NODE_ENV === 'development'` 限制，否則部署後 API 會回傳 404。
-- 24 筆資料由固定模板生成，價格、顏色、促銷均為示範內容，不代表真實商品資訊。第 1 批只有自製 SVG 佔位素材，商品圖片在視覺批次補上。
+- 24 筆資料由固定模板生成，價格、組合、評價與促銷均為示範內容，不代表真實商品資訊。六張代表性商品圖已下載至本地，來源見 [素材紀錄](docs/asset-sources.md)。
 - `public/mockServiceWorker.js` 由 MSW CLI 產生並納入版控；更新 MSW 後以 `pnpm exec msw init public --save` 同步此檔案，不手動修改。
 
 ## 設計與協作紀錄

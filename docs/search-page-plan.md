@@ -27,6 +27,8 @@
 
 商品區要包含完整商品卡，不能只完成截圖中露出的圖片上緣。素材使用本地檔案並記錄來源，執行時不依賴 momo 圖片服務；參考圖若需交付，須另行納入可提交的位置。
 
+第二批開始前，使用者確認採用少量真站公開商品圖，原樣下載至本地；來源與對應路徑見 [素材紀錄](./asset-sources.md)。
+
 ## 3. 技術與狀態分工
 
 採用 **Next.js App Router、TypeScript、Tailwind CSS、TanStack Query、MSW**。以靜態輸出（Static Export）交付，查詢於瀏覽器執行，不使用 API Routes、Server Actions 或動態伺服器資料讀取。
@@ -45,6 +47,8 @@ TanStack Query 集中管理非同步資料狀態，透過 `fetch` 呼叫同源 `
 原方案為直接呼叫本地 Promise service，整合成本較低；使用者在第一批開始前選擇 MSW，理由是熟悉該工具，且希望保留一般 HTTP 呼叫與未來 API 替換邊界。代價是 Worker 檔案、啟動等待與展示環境的整合驗證。資料篩選邏輯保持獨立，供 handler 與測試重用。這是純 Mock 展示應用，刻意不套用「production 停用 MSW」的一般設定。
 
 建議分工（位於 `src`）：`app/search` 組合頁面與 URL；`features/search` 放控制項、參數解析與查詢邏輯；`features/products` 放商品模型、HTTP 呼叫與卡片；`mocks` 放固定資料、handlers 與 Worker 啟動；`public` 放素材與 Worker 腳本。不先建立通用 Facet／Plugin 引擎。
+
+`features/search/search-results.tsx` 是頁面容器，負責 Query 與元件組合；頁首、品牌、工具列與分頁等呈現元件放在 `features/search/components/`，以 props／callback 接收資料與事件。之後有實際需要再拆 hooks 或查詢模組，不預建空目錄或 barrel exports。
 
 Next.js 注意事項：讀取 `useSearchParams` 的 Client Component 使用適當的 Suspense 邊界；本地圖片使用相容靜態輸出的設定；盡早執行 production build，避免只在 dev 模式可用。
 
